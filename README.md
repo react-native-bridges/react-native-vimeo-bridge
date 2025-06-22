@@ -1,4 +1,4 @@
-# react-native-vimeo-bridge
+# [WIP] react-native-vimeo-bridge
 
 Easy-to-use Vimeo player for React Native with cross-platform support
 
