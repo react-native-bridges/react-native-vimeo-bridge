@@ -83,7 +83,6 @@
   ],
   "packageManager": "pnpm@10.11.0",
   "jest": {
-    "preset": "react-native",
     "modulePathIgnorePatterns": [
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
