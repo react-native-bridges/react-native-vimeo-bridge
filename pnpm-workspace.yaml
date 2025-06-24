@@ -1,0 +1,5 @@
+packages:
+  - example
+catalog:
+  'typescript': ^5.8.3
+  'jest': ^29.7.0

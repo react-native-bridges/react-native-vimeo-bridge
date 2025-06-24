@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { multiply } from 'react-native-vimeo-bridge';
 
 const result = multiply(3, 7);
