@@ -1,13 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { multiply } from 'react-native-vimeo-bridge';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { useVimeoPlayerStatus, VimeoPlayer } from 'react-native-vimeo-bridge';
 
-const result = multiply(3, 7);
+function App() {
+  const play = useVimeoPlayerStatus('play');
 
-export default function App() {
+  console.log('play', play);
+
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <VimeoPlayer source="https://player.vimeo.com/video/76979871?h=8272103f6e" />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -18,3 +22,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
