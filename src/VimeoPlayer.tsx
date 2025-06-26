@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { type DataDetectorTypes, Dimensions, StyleSheet } from 'react-native';
 import WebView, { type WebViewMessageEvent } from 'react-native-webview';
 import type { VimeoPlayerProps } from './types';
@@ -121,13 +121,6 @@ const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
         </html>
       `;
     }, [player]);
-
-    // TODO: 플레이어 인스턴스 추가
-    useImperativeHandle(ref, () => ({
-      play: () => {
-        webViewRef.current?.injectJavaScript('player.play()');
-      },
-    }));
 
     return (
       <VimeoPlayerWrapper width={width} height={height} style={style}>

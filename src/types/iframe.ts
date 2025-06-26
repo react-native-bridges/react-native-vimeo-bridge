@@ -2,6 +2,8 @@ export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p'
 
 export type TrackKind = 'captions' | 'subtitles';
 
+export type VimeoTimeRange = [number, number];
+
 export interface VimeoPlayerOptions {
   id?: number | undefined;
   url?: string | undefined;
@@ -120,6 +122,25 @@ export interface VimeoCameraProps {
   pitch: number;
   roll: number;
   fov: number;
+}
+
+export interface VimeoTextTrack {
+  language: string;
+  kind: TrackKind;
+  label: string;
+  mode?: string | undefined;
+}
+
+export interface VimeoCuePoint {
+  time: number;
+  data: VimeoCuePointData;
+  id: string;
+}
+
+export interface VimeoVideoQualityObject {
+  label: string;
+  id: string;
+  active: boolean;
 }
 
 export interface ResizeEvent {
