@@ -1,8 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { type DataDetectorTypes, Dimensions, StyleSheet } from 'react-native';
 import WebView, { type WebViewMessageEvent } from 'react-native-webview';
-import useVimeoVideoUrl from './hooks/useVimeoVideoUrl';
-import VimeoEventManager from './module/VimeoEventManager';
 import type { VimeoPlayerProps } from './types';
 import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './types/iframe';
 import VimeoPlayerWrapper from './VimeoPlayerWrapper';
@@ -10,31 +8,37 @@ import VimeoPlayerWrapper from './VimeoPlayerWrapper';
 const { width: screenWidth } = Dimensions.get('window');
 
 const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
-  ({ source, height = 200, width = screenWidth, style, embedOptions, webViewProps, webViewStyle }, ref) => {
+  ({ player, height = 200, width = screenWidth, style, webViewProps, webViewStyle }, ref) => {
     const webViewRef = useRef<WebView>(null);
-    const eventManager = useRef(VimeoEventManager.getInstance());
 
     const dataDetectorTypes = useMemo(() => ['none'] as DataDetectorTypes[], []);
 
-    const sourceUri = useVimeoVideoUrl(source);
+    const handleMessage = useCallback(
+      (event: WebViewMessageEvent) => {
+        const response = JSON.parse(event.nativeEvent.data) as {
+          type: keyof VimeoPlayerEventMap;
+          data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
+        } | null;
 
-    const handleMessage = (event: WebViewMessageEvent) => {
-      const response = JSON.parse(event.nativeEvent.data) as {
-        type: keyof VimeoPlayerEventMap;
-        data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
-      } | null;
+        if (!response) {
+          return;
+        }
 
-      console.log('event', response);
-
-      if (response && eventManager.current.hasListeners(response.type)) {
-        eventManager.current.emit(response.type, response.data);
-      }
-    };
+        if (player.hasListeners(response.type)) {
+          player.emit(response.type, response.data);
+        }
+      },
+      [player],
+    );
 
     const createPlayerHTML = useCallback(() => {
+      const sourceUri = player.getSource();
+
       if (!sourceUri) {
-        return '<html><body><div>Invalid Vimeo URL</div></body></html>';
+        return '<html><body><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: #fff;">Invalid Vimeo URL</div></body></html>';
       }
+
+      const embedOptions = player.getOptions();
 
       const options: VimeoPlayerOptions = {
         url: sourceUri,
@@ -73,7 +77,7 @@ const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
               (function() {
                 'use strict';
 
-                var player = new Vimeo.Player('vimeo-player', ${JSON.stringify(options)});
+                const player = new Vimeo.Player('vimeo-player', ${JSON.stringify(options)});
 
                 const sendMessage = (type) => (data) => {
                   if (window.ReactNativeWebView) {
@@ -116,7 +120,7 @@ const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
           </body>
         </html>
       `;
-    }, [embedOptions, sourceUri]);
+    }, [player]);
 
     // TODO: 플레이어 인스턴스 추가
     useImperativeHandle(ref, () => ({

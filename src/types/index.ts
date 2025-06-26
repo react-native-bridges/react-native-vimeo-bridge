@@ -1,7 +1,8 @@
 import type { DimensionValue, StyleProp, ViewStyle } from 'react-native';
 import type { WebViewProps } from 'react-native-webview';
 import type { WebViewSourceUri } from 'react-native-webview/lib/WebViewTypes';
-import type { VimeoPlayerOptions } from './iframe';
+import type VimeoPlayerInstance from '../module/VimeoPlayerInstance';
+import type { VimeoPlayerEventMap } from './iframe';
 
 export type VimeoSource =
   | string
@@ -9,12 +10,18 @@ export type VimeoSource =
       url: string;
     };
 
+export type VimeoPlayerStatus = Omit<
+  VimeoPlayerEventMap,
+  'bufferend' | 'bufferstart' | 'enterpictureinpicture' | 'leavepictureinpicture'
+>;
+
+export type VimeoPlayerEvent = keyof VimeoPlayerEventMap;
+
 export type VimeoPlayerProps = {
-  source: VimeoSource;
+  player: VimeoPlayerInstance;
   width?: DimensionValue;
   height?: DimensionValue;
   style?: StyleProp<ViewStyle>;
-  embedOptions?: VimeoPlayerOptions;
   webViewProps?: Omit<WebViewProps, 'ref' | 'source' | 'style' | 'onMessage' | 'javaScriptEnabled' | 'onError'> & {
     source?: Omit<WebViewSourceUri, 'uri'>;
   };
