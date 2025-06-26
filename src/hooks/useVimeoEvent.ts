@@ -63,7 +63,7 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
     if (isCallback) {
       callbackRef.current = callbackOrThrottle;
     }
-  }, [callbackOrThrottle, ...(deps ?? []), isCallback]);
+  }, [callbackOrThrottle, isCallback, ...(deps ?? [])]);
 
   useEffect(() => {
     const unsubscribe = player.subscribe(eventType, (eventData) => {
