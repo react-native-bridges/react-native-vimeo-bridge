@@ -10,13 +10,14 @@ import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
 const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoPlayerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isInitialized, setIsInitialized] = useState(false);
-  const playerRef = useRef<WebVimeoPlayerController | null>(WebVimeoPlayerController.getInstance());
+  const playerRef = useRef<WebVimeoPlayerController | null>(null);
 
   const { width: screenWidth } = useWindowDimensions();
 
   useEffect(() => {
     WebVimeoPlayerController.initialize().then(() => {
       setIsInitialized(true);
+      playerRef.current = WebVimeoPlayerController.getInstance();
     });
   }, []);
 
@@ -44,13 +45,15 @@ const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoP
 
       player[INTERNAL_SET_CONTROLLER_INSTANCE](playerRef.current);
     }
+  }, [isInitialized, player]);
 
+  useEffect(() => {
     return () => {
       if (playerRef.current) {
         playerRef.current = null;
       }
     };
-  }, [isInitialized, player]);
+  }, []);
 
   return (
     <VimeoPlayerWrapper width={width ?? screenWidth} height={height} style={style}>

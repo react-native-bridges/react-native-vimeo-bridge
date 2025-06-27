@@ -190,13 +190,15 @@ const VimeoPlayer = ({
 
       player[INTERNAL_SET_CONTROLLER_INSTANCE](controller);
     }
+  }, [isReady, player]);
 
+  useEffect(() => {
     return () => {
       if (playerRef.current) {
         playerRef.current = null;
       }
     };
-  }, [isReady, player]);
+  }, []);
 
   return (
     <VimeoPlayerWrapper width={width} height={height} style={style}>
