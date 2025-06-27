@@ -45,6 +45,7 @@ export interface VimeoCuePointData {
 
 export interface VolumeChangeEvent {
   volume: number;
+  muted: boolean;
 }
 
 export interface PlaybackRateEvent {

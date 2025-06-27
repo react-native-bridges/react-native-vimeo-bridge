@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef } from 'react';
-import type WebView from 'react-native-webview';
 import VimeoPlayerInstance from '../module/VimeoPlayerInstance';
 import type { VimeoSource } from '../types';
 import type { VimeoPlayerOptions } from '../types/vimeo';
@@ -11,12 +10,11 @@ import type { VimeoPlayerOptions } from '../types/vimeo';
  */
 const useVimeoPlayer = (source: VimeoSource, options?: VimeoPlayerOptions): VimeoPlayerInstance => {
   const playerRef = useRef<VimeoPlayerInstance | null>(null);
-  const ref = useRef<WebView | HTMLIFrameElement>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only once
   const player = useMemo(() => {
     if (!playerRef.current) {
-      playerRef.current = new VimeoPlayerInstance(source, ref, options);
+      playerRef.current = new VimeoPlayerInstance(source, options);
     }
 
     return playerRef.current;
