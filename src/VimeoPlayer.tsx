@@ -49,8 +49,6 @@ const VimeoPlayer = ({
       if (response.type === 'commandResult') {
         const pendingCommands = playerRef.current?.getPendingCommands();
 
-        console.log('pendingCommands', pendingCommands);
-
         const resolver = pendingCommands?.get(response.id);
         if (resolver) {
           resolver(response.data);
