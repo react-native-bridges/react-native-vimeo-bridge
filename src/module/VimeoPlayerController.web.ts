@@ -1,10 +1,10 @@
-import type { VimeoPlayerOptions } from '../types/iframe';
+import type { VimeoPlayer, VimeoPlayerOptions } from '../types/vimeo';
 
 export class VimeoPlayerController {
-  private player: Vimeo.Player | null = null;
+  private player: VimeoPlayer | null = null;
 
   static async loadAPI(): Promise<void> {
-    if (typeof window === 'undefined' || window.Vimeo) {
+    if (typeof window === 'undefined' || window.Vimeo.Player) {
       return Promise.resolve();
     }
 
@@ -62,7 +62,7 @@ export class VimeoPlayerController {
       }
     }
 
-    this.player = new Vimeo.Player(containerId, options);
+    this.player = new window.Vimeo.Player(containerId, options);
   }
 
   async play(): Promise<void> {

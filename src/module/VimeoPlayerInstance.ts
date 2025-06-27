@@ -1,18 +1,15 @@
 import type { VimeoSource } from '../types';
-import type { EventCallback, VimeoPlayerEventMap, VimeoPlayerOptions } from '../types/iframe';
+import type { EventCallback, VimeoPlayerEventMap, VimeoPlayerOptions } from '../types/vimeo';
 import { parseVimeoSource } from '../utils';
-import VimeoPlayerController from './VimeoPlayerController';
 
 class VimeoPlayerInstance {
-  private listeners: Map<string, Set<EventCallback>> = new Map();
+  private listeners: Map<keyof VimeoPlayerEventMap, Set<EventCallback>> = new Map();
   private source: string | null;
   private options?: VimeoPlayerOptions;
-  private controller: VimeoPlayerController;
 
-  constructor(source: VimeoSource, ref: React.RefObject<any>, options?: VimeoPlayerOptions) {
+  constructor(source: VimeoSource, _: React.RefObject<any>, options?: VimeoPlayerOptions) {
     this.source = parseVimeoSource(source);
     this.options = options;
-    this.controller = new VimeoPlayerController(ref);
   }
 
   getSource(): string | null {
@@ -21,6 +18,10 @@ class VimeoPlayerInstance {
 
   getOptions(): VimeoPlayerOptions | undefined {
     return this.options;
+  }
+
+  getListeners(): [keyof VimeoPlayerEventMap, Set<EventCallback>][] {
+    return Array.from(this.listeners.entries());
   }
 
   subscribe<T extends keyof VimeoPlayerEventMap>(
@@ -52,17 +53,17 @@ class VimeoPlayerInstance {
     return listeners ? listeners.size > 0 : false;
   }
 
-  play(): void {
-    this.controller.play();
-  }
+  // play(): void {
+  //   this.controller.play();
+  // }
 
-  pause(): void {
-    this.controller.pause();
-  }
+  // pause(): void {
+  //   this.controller.pause();
+  // }
 
-  private unsubscribe(eventType: string, callback: any): void {
-    this.listeners.get(eventType)?.delete(callback);
-  }
+  // private unsubscribe(eventType: keyof VimeoPlayerEventMap, callback: EventCallback): void {
+  //   this.listeners.get(eventType)?.delete(callback);
+  // }
 
   dispose(): void {
     this.listeners.clear();

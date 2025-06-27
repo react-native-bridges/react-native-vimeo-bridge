@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type VimeoPlayerInstance from '../module/VimeoPlayerInstance';
 import type { VimeoPlayerStatus } from '../types';
-import type { EventCallback, VimeoPlayerEventMap } from '../types/iframe';
+import type { EventCallback, VimeoPlayerEventMap } from '../types/vimeo';
 
 /**
  * @param player - The Vimeo player instance.

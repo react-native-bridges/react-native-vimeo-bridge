@@ -1,8 +1,10 @@
-import type Vimeo from './vimeo';
+import type { VimeoPlayer } from './vimeo';
 
 declare global {
   interface Window {
-    Vimeo: typeof Vimeo;
+    Vimeo: {
+      Player: typeof VimeoPlayer;
+    };
     _vimeoApiPromise?: Promise<void>;
   }
 }
