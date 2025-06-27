@@ -20,13 +20,13 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
 /**
  * @param player - The Vimeo player instance.
  * @param eventType - `timeupdate` event only.
- * @param throttleMs - The throttle time in milliseconds.
+ * @param throttleMs - The throttle time in milliseconds (default 250ms).
  * @returns The event data.
  */
 function useVimeoEvent(
   player: VimeoPlayerInstance,
   eventType: 'timeupdate',
-  throttleMs: number,
+  throttleMs?: number,
 ): VimeoPlayerStatus['timeupdate'] | null;
 
 /**

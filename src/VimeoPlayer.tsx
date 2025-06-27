@@ -1,8 +1,12 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { type DataDetectorTypes, Dimensions, StyleSheet } from 'react-native';
 import WebView, { type WebViewMessageEvent } from 'react-native-webview';
+import WebviewVimeoPlayerController from './module/WebviewVimeoPlayerController';
+import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
 import type { VimeoPlayerProps } from './types';
+import type { CommandResult, ReadyResult } from './types/message';
 import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './types/vimeo';
+import { webviewScripts } from './utils/webviewScripts';
 import VimeoPlayerWrapper from './VimeoPlayerWrapper';
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -16,17 +20,42 @@ const VimeoPlayer = ({
   webViewStyle,
 }: VimeoPlayerProps) => {
   const webViewRef = useRef<WebView>(null);
+  const playerRef = useRef<WebviewVimeoPlayerController>(null);
+
+  const [isReady, setIsReady] = useState(false);
 
   const dataDetectorTypes = useMemo(() => ['none'] as DataDetectorTypes[], []);
 
   const handleMessage = useCallback(
     (event: WebViewMessageEvent) => {
-      const response = JSON.parse(event.nativeEvent.data) as {
-        type: keyof VimeoPlayerEventMap;
-        data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
-      } | null;
+      const response = JSON.parse(event.nativeEvent.data) as
+        | {
+            type: keyof VimeoPlayerEventMap;
+            data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
+          }
+        | CommandResult
+        | ReadyResult
+        | null;
 
       if (!response) {
+        return;
+      }
+
+      if (response.type === 'onReady') {
+        setIsReady(true);
+        return;
+      }
+
+      if (response.type === 'commandResult') {
+        const pendingCommands = playerRef.current?.getPendingCommands();
+
+        console.log('pendingCommands', pendingCommands);
+
+        const resolver = pendingCommands?.get(response.id);
+        if (resolver) {
+          resolver(response.data);
+          pendingCommands?.delete(response.id);
+        }
         return;
       }
 
@@ -95,6 +124,8 @@ const VimeoPlayer = ({
                 };
 
                 if (player) {
+                  sendMessage('onReady')(null);
+
                   player.on('play', sendMessage('play'));
                   player.on('playing', sendMessage('playing'));
                   player.on('pause', sendMessage('pause'));
@@ -120,6 +151,25 @@ const VimeoPlayer = ({
                   player.on('resize', sendMessage('resize'));
                   player.on('enterpictureinpicture', sendMessage('enterpictureinpicture'));
                   player.on('leavepictureinpicture', sendMessage('leavepictureinpicture'));
+                  ${webviewScripts.receiveMessage}
+  
+                  window.playerCommands = {
+                    play: () => player.play(),
+                    pause: () => player.pause(),
+                    unload: () => player.unload(),
+                    setCurrentTime: (seconds) => player.setCurrentTime(seconds),
+                    setVolume: (volume) => player.setVolume(volume),
+                    setMuted: (muted) => player.setMuted(muted),
+                    getCurrentTime: () => player.getCurrentTime(),
+                    getDuration: () => player.getDuration(),
+                    setPlaybackRate: (rate) => player.setPlaybackRate(rate),
+                    getPlaybackRate: () => player.getPlaybackRate(),
+                    getVideoId: () => player.getVideoId(),
+                    getVideoTitle: () => player.getVideoTitle(),
+                    getVideoWidth: () => player.getVideoWidth(),
+                    getVideoHeight: () => player.getVideoHeight(),
+                    getVideoUrl: () => player.getVideoUrl(),
+                  }
                 }
               })();
             </script>
@@ -127,6 +177,16 @@ const VimeoPlayer = ({
         </html>
       `;
   }, [player]);
+
+  useEffect(() => {
+    if (isReady && webViewRef.current) {
+      const controller = WebviewVimeoPlayerController.getInstance(webViewRef);
+
+      playerRef.current = controller;
+
+      player[INTERNAL_SET_CONTROLLER_INSTANCE](controller);
+    }
+  }, [isReady, player]);
 
   return (
     <VimeoPlayerWrapper width={width} height={height} style={style}>

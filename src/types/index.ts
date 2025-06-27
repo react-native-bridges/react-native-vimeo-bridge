@@ -21,9 +21,21 @@ export type VimeoPlayerProps = {
   width?: DimensionValue;
   height?: DimensionValue;
   style?: StyleProp<ViewStyle>;
+  /**
+   * @description Style for the iframe element
+   * @platform web
+   */
   iframeStyle?: CSSProperties;
+  /**
+   * @description Props for the webview element
+   * @platform ios, android
+   */
   webViewProps?: Omit<WebViewProps, 'ref' | 'source' | 'style' | 'onMessage' | 'javaScriptEnabled' | 'onError'> & {
     source?: Omit<WebViewSourceUri, 'uri'>;
   };
+  /**
+   * @description Style for the webview element
+   * @platform ios, android
+   */
   webViewStyle?: StyleProp<ViewStyle>;
 };
