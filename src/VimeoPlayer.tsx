@@ -1,51 +1,57 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { type DataDetectorTypes, Dimensions, StyleSheet } from 'react-native';
 import WebView, { type WebViewMessageEvent } from 'react-native-webview';
 import type { VimeoPlayerProps } from './types';
-import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './types/iframe';
+import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './types/vimeo';
 import VimeoPlayerWrapper from './VimeoPlayerWrapper';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
-  ({ player, height = 200, width = screenWidth, style, webViewProps, webViewStyle }, ref) => {
-    const webViewRef = useRef<WebView>(null);
+const VimeoPlayer = ({
+  player,
+  height = 200,
+  width = screenWidth,
+  style,
+  webViewProps,
+  webViewStyle,
+}: VimeoPlayerProps) => {
+  const webViewRef = useRef<WebView>(null);
 
-    const dataDetectorTypes = useMemo(() => ['none'] as DataDetectorTypes[], []);
+  const dataDetectorTypes = useMemo(() => ['none'] as DataDetectorTypes[], []);
 
-    const handleMessage = useCallback(
-      (event: WebViewMessageEvent) => {
-        const response = JSON.parse(event.nativeEvent.data) as {
-          type: keyof VimeoPlayerEventMap;
-          data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
-        } | null;
+  const handleMessage = useCallback(
+    (event: WebViewMessageEvent) => {
+      const response = JSON.parse(event.nativeEvent.data) as {
+        type: keyof VimeoPlayerEventMap;
+        data: VimeoPlayerEventMap[keyof VimeoPlayerEventMap];
+      } | null;
 
-        if (!response) {
-          return;
-        }
-
-        if (player.hasListeners(response.type)) {
-          player.emit(response.type, response.data);
-        }
-      },
-      [player],
-    );
-
-    const createPlayerHTML = useCallback(() => {
-      const sourceUri = player.getSource();
-
-      if (!sourceUri) {
-        return '<html><body><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: #fff;">Invalid Vimeo URL</div></body></html>';
+      if (!response) {
+        return;
       }
 
-      const embedOptions = player.getOptions();
+      if (player.hasListeners(response.type)) {
+        player.emit(response.type, response.data);
+      }
+    },
+    [player],
+  );
 
-      const options: VimeoPlayerOptions = {
-        url: sourceUri,
-        ...embedOptions,
-      };
+  const createPlayerHTML = useCallback(() => {
+    const sourceUri = player.getSource();
 
-      return /* html */ `
+    if (!sourceUri) {
+      return '<html><body><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: #fff;">Invalid Vimeo URL</div></body></html>';
+    }
+
+    const embedOptions = player.getOptions();
+
+    const options: VimeoPlayerOptions = {
+      url: sourceUri,
+      ...embedOptions,
+    };
+
+    return /* html */ `
         <!DOCTYPE html>
         <html>
           <head>
@@ -120,43 +126,35 @@ const VimeoPlayer = forwardRef<HTMLDivElement, VimeoPlayerProps>(
           </body>
         </html>
       `;
-    }, [player]);
+  }, [player]);
 
-    // TODO: 플레이어 인스턴스 추가
-    useImperativeHandle(ref, () => ({
-      play: () => {
-        webViewRef.current?.injectJavaScript('player.play()');
-      },
-    }));
-
-    return (
-      <VimeoPlayerWrapper width={width} height={height} style={style}>
-        <WebView
-          domStorageEnabled
-          allowsFullscreenVideo
-          allowsInlineMediaPlayback
-          bounces={false}
-          scrollEnabled={false}
-          mediaPlaybackRequiresUserAction={false}
-          originWhitelist={['*']}
-          style={[styles.webView, webViewStyle]}
-          // iOS specific props
-          allowsLinkPreview={false}
-          dataDetectorTypes={dataDetectorTypes}
-          // Android specific props
-          mixedContentMode="compatibility"
-          thirdPartyCookiesEnabled={false}
-          webviewDebuggingEnabled={__DEV__}
-          {...webViewProps}
-          ref={webViewRef}
-          javaScriptEnabled
-          source={{ html: createPlayerHTML() }}
-          onMessage={handleMessage}
-        />
-      </VimeoPlayerWrapper>
-    );
-  },
-);
+  return (
+    <VimeoPlayerWrapper width={width} height={height} style={style}>
+      <WebView
+        domStorageEnabled
+        allowsFullscreenVideo
+        allowsInlineMediaPlayback
+        bounces={false}
+        scrollEnabled={false}
+        mediaPlaybackRequiresUserAction={false}
+        originWhitelist={['*']}
+        style={[styles.webView, webViewStyle]}
+        // iOS specific props
+        allowsLinkPreview={false}
+        dataDetectorTypes={dataDetectorTypes}
+        // Android specific props
+        mixedContentMode="compatibility"
+        thirdPartyCookiesEnabled={false}
+        webviewDebuggingEnabled={__DEV__}
+        {...webViewProps}
+        ref={webViewRef}
+        javaScriptEnabled
+        source={{ html: createPlayerHTML() }}
+        onMessage={handleMessage}
+      />
+    </VimeoPlayerWrapper>
+  );
+};
 
 const styles = StyleSheet.create({
   webView: {

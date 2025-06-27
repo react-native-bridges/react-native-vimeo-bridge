@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
+import type WebView from 'react-native-webview';
 import VimeoPlayerInstance from '../module/VimeoPlayerInstance';
 import type { VimeoSource } from '../types';
-import type { VimeoPlayerOptions } from '../types/iframe';
+import type { VimeoPlayerOptions } from '../types/vimeo';
 
 /**
  * @param source - The source of the Vimeo video. It can be a string or an object with a `url` property.
@@ -10,11 +11,12 @@ import type { VimeoPlayerOptions } from '../types/iframe';
  */
 const useVimeoPlayer = (source: VimeoSource, options?: VimeoPlayerOptions): VimeoPlayerInstance => {
   const playerRef = useRef<VimeoPlayerInstance | null>(null);
+  const ref = useRef<WebView | HTMLIFrameElement>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only once
   const player = useMemo(() => {
     if (!playerRef.current) {
-      playerRef.current = new VimeoPlayerInstance(source, options);
+      playerRef.current = new VimeoPlayerInstance(source, ref, options);
     }
 
     return playerRef.current;
