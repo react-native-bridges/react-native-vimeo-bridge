@@ -92,6 +92,10 @@ class WebviewVimeoPlayerController {
     return this.executeCommand('getVideoUrl', [], true);
   }
 
+  async destroy(): Promise<void> {
+    await this.executeCommand('destroy');
+  }
+
   private executeCommand(
     command: string,
     args: (string | number | boolean | undefined)[] = [],
@@ -138,6 +142,9 @@ class WebviewVimeoPlayerController {
 
   dispose(): void {
     this.pendingCommands.clear();
+    this.destroy();
+
+    WebviewVimeoPlayerController.instance = null;
   }
 }
 

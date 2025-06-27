@@ -161,6 +161,8 @@ class WebVimeoPlayerController {
       }
       this.player = null;
     }
+
+    WebVimeoPlayerController.instance = null;
   }
 }
 

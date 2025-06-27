@@ -47,6 +47,11 @@ const VimeoPlayer = ({
       }
 
       if (response.type === 'commandResult') {
+        if (!playerRef.current) {
+          console.warn('Player controller not available for command result');
+          return;
+        }
+
         const pendingCommands = playerRef.current?.getPendingCommands();
 
         const resolver = pendingCommands?.get(response.id);
@@ -167,6 +172,7 @@ const VimeoPlayer = ({
                     getVideoWidth: () => player.getVideoWidth(),
                     getVideoHeight: () => player.getVideoHeight(),
                     getVideoUrl: () => player.getVideoUrl(),
+                    destroy: () => player.destroy(),
                   }
                 }
               })();
@@ -184,6 +190,12 @@ const VimeoPlayer = ({
 
       player[INTERNAL_SET_CONTROLLER_INSTANCE](controller);
     }
+
+    return () => {
+      if (playerRef.current) {
+        playerRef.current = null;
+      }
+    };
   }, [isReady, player]);
 
   return (
