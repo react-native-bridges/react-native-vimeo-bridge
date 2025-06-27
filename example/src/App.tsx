@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
 
 const safeNumber = (value: number | undefined): number => {
@@ -121,7 +121,19 @@ function App() {
           <Text style={styles.subtitle}>Video ID: {videoId}</Text>
           <Text style={styles.subtitle}>Playback rate: {playbackRate?.playbackRate ?? 1}x</Text>
         </View>
-        <VimeoPlayer player={player} />
+        <VimeoPlayer
+          player={player}
+          height={Platform.OS === 'web' ? 'auto' : undefined}
+          webViewProps={{
+            renderToHardwareTextureAndroid: true,
+          }}
+          style={{
+            maxHeight: 400,
+          }}
+          iframeStyle={{
+            aspectRatio: 16 / 9,
+          }}
+        />
         <View style={styles.progressContainer}>
           <Text style={styles.timeText}>
             {formatTime(currentTime)} / {formatTime(duration)}
