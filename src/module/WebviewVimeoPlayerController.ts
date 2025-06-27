@@ -13,7 +13,10 @@ class WebviewVimeoPlayerController {
   static getInstance(webViewRef: React.RefObject<WebView | null>): WebviewVimeoPlayerController {
     if (!WebviewVimeoPlayerController.instance) {
       WebviewVimeoPlayerController.instance = new WebviewVimeoPlayerController(webViewRef);
+    } else {
+      WebviewVimeoPlayerController.instance.webViewRef = webViewRef;
     }
+
     return WebviewVimeoPlayerController.instance;
   }
 
@@ -22,15 +25,15 @@ class WebviewVimeoPlayerController {
   }
 
   async play(): Promise<void> {
-    this.executeCommand('play');
+    await this.executeCommand('play');
   }
 
   async pause(): Promise<void> {
-    this.executeCommand('pause');
+    await this.executeCommand('pause');
   }
 
   async unload(): Promise<void> {
-    this.executeCommand('unload');
+    await this.executeCommand('unload');
   }
 
   async setCurrentTime(seconds: number): Promise<number> {

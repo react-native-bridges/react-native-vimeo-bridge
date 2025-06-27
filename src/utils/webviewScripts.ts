@@ -1,6 +1,10 @@
 const receiveMessage = /* js */ `
   window.__execCommand = function(commandData) {
     try {
+      if (!commandData || typeof commandData !== 'object') {
+        throw new Error('Invalid command data');
+      }
+      
       const { command, args = [], id } = commandData;
       
       if (window.playerCommands && typeof window.playerCommands[command] === 'function') {

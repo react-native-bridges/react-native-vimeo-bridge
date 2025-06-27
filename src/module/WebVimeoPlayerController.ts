@@ -8,6 +8,7 @@ class WebVimeoPlayerController {
     if (!WebVimeoPlayerController.instance) {
       WebVimeoPlayerController.instance = new WebVimeoPlayerController();
     }
+
     return WebVimeoPlayerController.instance;
   }
 
@@ -70,7 +71,7 @@ class WebVimeoPlayerController {
       try {
         this.player.destroy();
       } catch (error) {
-        console.warn('Error destroying YouTube player:', error);
+        console.warn('Error destroying Vimeo player:', error);
       }
     }
 
@@ -84,15 +85,15 @@ class WebVimeoPlayerController {
   }
 
   async play(): Promise<void> {
-    this.player?.play();
+    await this.player?.play();
   }
 
   async pause(): Promise<void> {
-    this.player?.pause();
+    await this.player?.pause();
   }
 
   async unload(): Promise<void> {
-    this.player?.unload();
+    await this.player?.unload();
   }
 
   async setCurrentTime(seconds: number): Promise<number> {

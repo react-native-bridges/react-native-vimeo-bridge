@@ -71,15 +71,15 @@ class VimeoPlayerInstance {
   }
 
   async play(): Promise<void> {
-    return this.controller?.play();
+    await this.controller?.play();
   }
 
   async pause(): Promise<void> {
-    return this.controller?.pause();
+    await this.controller?.pause();
   }
 
   async unload(): Promise<void> {
-    return this.controller?.unload();
+    await this.controller?.unload();
   }
 
   async setCurrentTime(seconds: number): Promise<number> {
