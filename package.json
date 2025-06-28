@@ -94,6 +94,7 @@
     "react-native-webview": ">=11.0.0"
   },
   "workspaces": [
+    ".",
     "example"
   ],
   "packageManager": "pnpm@10.11.0",
@@ -130,6 +131,5 @@
     "languages": "js",
     "type": "library",
     "version": "0.51.1"
-  },
-  "private": true
+  }
 }
