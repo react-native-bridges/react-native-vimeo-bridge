@@ -1,6 +1,6 @@
 {
   "name": "react-native-vimeo-bridge",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "🎥 Easy-to-use Vimeo player for React Native with cross-platform support",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -13,7 +13,6 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
     "lib",
     "android",
     "ios",
@@ -32,7 +31,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "pnpm --filter react-native-vimeo-bridge-example",
+    "example": "pnpm --filter react-native-vimeo-bridge-example run",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "biome format --write",
@@ -41,8 +40,20 @@
   },
   "keywords": [
     "react-native",
+    "expo",
     "ios",
-    "android"
+    "android",
+    "web",
+    "vimeo",
+    "player",
+    "vimeo-player",
+    "vimeo-video",
+    "react-native-vimeo",
+    "react-native-vimeo-player",
+    "react-native-vimeo-bridge",
+    "expo-vimeo-player",
+    "expo-vimeo-video",
+    "react-native-bridges"
   ],
   "repository": {
     "type": "git",
