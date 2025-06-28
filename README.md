@@ -23,6 +23,10 @@ With the lack of actively maintained Vimeo player libraries for React Native, `r
 - [📁 Example Project](/example/) - Real implementation code and various use cases
 - [🌐 Web Demo](https://react-native-vimeo-bridge-example.pages.dev/) - Try it in your browser
 
+<p align="center">
+  <img src="./assets/example.gif" width="600" />
+</p>
+
 ### Installation
 
 ```bash
