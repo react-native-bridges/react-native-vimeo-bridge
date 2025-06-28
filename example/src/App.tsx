@@ -66,7 +66,7 @@ function App() {
     [player],
   );
 
-  const getPlayerInfo = async () => {
+  const getPlayerInfo = useCallback(async () => {
     try {
       const [videoId, title, url, width, height] = await Promise.all([
         player.getVideoId(),
@@ -93,7 +93,7 @@ function App() {
     } catch (error) {
       console.error('Error getting player info:', error);
     }
-  };
+  }, [player]);
 
   useVimeoEvent(player, 'playing', (data) => {
     console.log('playing', data);

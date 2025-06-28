@@ -146,7 +146,15 @@ const VimeoPlayer = ({
                   player.on('bufferstart', sendMessage('bufferstart'));
                   player.on('bufferend', sendMessage('bufferend'));
                   player.on('error', sendMessage('error'));
-                  player.on('loaded', sendMessage('loaded'));
+                  player.on('loaded', (data) => {
+                    sendMessage('loaded')(data);
+                    
+                    const iframe = document.querySelector('iframe');
+                    if (iframe) {
+                      iframe.style.width = '100%';
+                      iframe.style.height = '100%';
+                    }
+                  });
                   player.on('durationchange', sendMessage('durationchange'));
                   player.on('fullscreenchange', sendMessage('fullscreenchange'));
                   player.on('qualitychange', sendMessage('qualitychange'));

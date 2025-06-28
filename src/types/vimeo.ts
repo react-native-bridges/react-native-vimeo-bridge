@@ -115,23 +115,25 @@ export interface VimeoPlayerOptions {
   color?: string | undefined;
   controls?: boolean | undefined;
   dnt?: boolean | undefined;
-  height?: number | undefined;
   interactive_params?: string | undefined;
   keyboard?: boolean | undefined;
   loop?: boolean | undefined;
-  maxheight?: number | undefined;
-  maxwidth?: number | undefined;
   muted?: boolean | undefined;
   pip?: boolean | undefined;
   playsinline?: boolean | undefined;
   portrait?: boolean | undefined;
-  responsive?: boolean | undefined;
   speed?: boolean | undefined;
   quality?: VimeoVideoQuality | undefined;
   texttrack?: string | undefined;
   title?: boolean | undefined;
   transparent?: boolean | undefined;
-  width?: number | undefined;
+
+  // NOTE - https://github.com/vimeo/player.js/issues/38#issuecomment-242462979
+  // maxheight?: number | undefined;
+  // maxwidth?: number | undefined;
+  // responsive?: boolean | undefined;
+  // width?: number | undefined;
+  // height?: number | undefined;
 }
 
 export interface VimeoPlayerEventMap {
