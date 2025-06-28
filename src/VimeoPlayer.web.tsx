@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import WebVimeoPlayerController from './module/WebVimeoPlayerController';
+import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
 import type { VimeoPlayerProps } from './types';
 import VimeoPlayerWrapper from './VimeoPlayerWrapper';
-
-import './styles.css';
-import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
 
 const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoPlayerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
