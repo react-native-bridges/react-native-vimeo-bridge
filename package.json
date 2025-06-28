@@ -36,7 +36,8 @@
     "typecheck": "tsc",
     "lint": "biome format --write",
     "clean": "del-cli lib",
-    "build": "bob build"
+    "build": "bob build",
+    "changeset": "changeset"
   },
   "keywords": [
     "react-native",
