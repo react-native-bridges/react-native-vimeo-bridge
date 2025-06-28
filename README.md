@@ -60,6 +60,8 @@ function App() {
 Listen to Vimeo Player state changes in real-time. Use the `useVimeoEvent` Hook to subscribe to [events](https://github.com/vimeo/player.js/#events) in two ways.
 
 ```tsx
+import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -91,11 +93,15 @@ function App() {
 Control various player functions programmatically through Vimeo Player [methods](https://github.com/vimeo/player.js/#methods) such as play, pause, seek, volume control, and more.
 
 ```tsx
+import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+
+  const timeupdate = useVimeoEvent(player, 'timeupdate', 250);
+  const currentTime = safeNumber(timeupdate?.seconds);
 
   const handlePlayPause = useCallback(async () => {
     if (isPlaying) {
@@ -115,15 +121,15 @@ function App() {
 
       <View style={styles.controls}>
         <TouchableOpacity onPress={() => seekTo(currentTime - 10)}>
-          <Text>⏪ -10s</Text>
+          <Text>⏪ -10초</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handlePlayPause}>
-          <Text>{isPlaying ? '⏸️ Pause' : '▶️ Play'}</Text>
+          <Text>{isPlaying ? '⏸️ 일시정지' : '▶️ 재생'}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => seekTo(currentTime + 10)}>
-          <Text>⏭️ +10s</Text>
+          <Text>⏭️ +10초</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -158,6 +164,8 @@ function App() {
 Customize the player's iframe or webview styling.
 
 ```tsx
+import { VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   return (
     <VimeoPlayer

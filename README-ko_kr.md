@@ -60,6 +60,8 @@ function App() {
 Vimeo Player의 상태 변화를 실시간으로 감지하고 반응할 수 있습니다. `useVimeoEvent` Hook을 사용해 두 가지 방식으로 [이벤트](https://github.com/vimeo/player.js/#events)를 구독할 수 있습니다.
 
 ```tsx
+import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -91,11 +93,15 @@ function App() {
 Vimeo Player의 [메서드](https://github.com/vimeo/player.js/#methods)를 통해 재생, 일시정지, 시간 이동, 볼륨 조절 등 다양한 기능을 프로그래밍 방식으로 제어할 수 있습니다.
 
 ```tsx
+import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+
+  const timeupdate = useVimeoEvent(player, 'timeupdate', 250);
+  const currentTime = safeNumber(timeupdate?.seconds);
 
   const handlePlayPause = useCallback(async () => {
     if (isPlaying) {
@@ -158,6 +164,8 @@ function App() {
 플레이어의 iframe 또는 webview를 커스터마이징할 수 있습니다.
 
 ```tsx
+import { VimeoPlayer } from 'react-native-vimeo-bridge';
+
 function App() {
   return (
     <VimeoPlayer
