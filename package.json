@@ -54,7 +54,8 @@
     "react-native-vimeo-bridge",
     "expo-vimeo-player",
     "expo-vimeo-video",
-    "react-native-bridges"
+    "react-native-bridges",
+    "react-native-vimeo-iframe"
   ],
   "repository": {
     "type": "git",
