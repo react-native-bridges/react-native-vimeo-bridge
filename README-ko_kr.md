@@ -1,29 +1,29 @@
 # React Native Vimeo Bridge
 
-> English | [한국어](./README-ko_kr.md)
+> [English](./README.md) | 한국어
 
-## Overview
+## 개요
 
-Have you ever struggled with complex setup and manual WebView integration just to use Vimeo player in React Native?
+React Native에서 Vimeo 플레이어를 사용하기 위해 복잡한 설정과 웹뷰 통합 작업을 직접 구현해야 했던 경험이 있으신가요?
 
-With the lack of actively maintained Vimeo player libraries for React Native, `react-native-vimeo-bridge` provides a seamless way to integrate the [Vimeo Player JS API](https://developer.vimeo.com/player/sdk) into your React Native applications.
+현재 활발히 유지보수되는 React Native용 Vimeo 플레이어 라이브러리가 부족한 상황에서, `react-native-vimeo-bridge`는 [Vimeo Player JS API](https://developer.vimeo.com/player/sdk)를 React Native 환경에서 간편하게 활용할 수 있도록 만들어진 라이브러리입니다.
 
-### Key Features
+### 주요 특징
 
-- ✅ **Full TypeScript Support** - Enhanced type safety and developer experience
-- ✅ **Cross-Platform** - Works on iOS, Android, and Web
-- ✅ **New Architecture Compatible** - Full support for React Native's latest architecture
-- ✅ **Rich API Support** - Access to all core Vimeo Player JS API features
-- ✅ **React-Native Design** - Intuitive, easy-to-use Hook-based API
-- ✅ **Expo Compatible** - Ready to use in Expo projects
+- ✅ **TypeScript 완전 지원** - 타입 안정성과 개발자 경험 향상
+- ✅ **크로스 플랫폼** - iOS, Android, Web 모든 플랫폼 지원
+- ✅ **New Architecture 호환** - React Native의 최신 아키텍처 완벽 지원
+- ✅ **풍부한 API** - Vimeo Player JS API의 모든 핵심 기능 지원
+- ✅ **React다운 설계** - Hook 기반의 직관적이고 사용하기 쉬운 API
+- ✅ **Expo 호환** - Expo 프로젝트에서도 바로 사용 가능
 
-## Quick Start
+## 빠른 시작
 
-### Examples & Demo
-- [📁 Example Project](/example/) - Real implementation code and various use cases
-- [🌐 Web Demo](https://react-native-vimeo-bridge-example.pages.dev/) - Try it in your browser
+### 예제 및 데모
+- [📁 예제 프로젝트](/example/) - 실제 구현 코드와 다양한 사용 사례
+- [🌐 웹 데모](https://react-native-vimeo-bridge-example.pages.dev/) - 브라우저에서 바로 체험
 
-### Installation
+### 설치
 
 ```bash
 # npm
@@ -39,9 +39,9 @@ yarn add react-native-vimeo-bridge
 bun add react-native-vimeo-bridge
 ```
 
-## Usage
+## 사용법
 
-### Basic Usage
+### 기본 사용법
 
 ```tsx
 import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
@@ -55,9 +55,9 @@ function App() {
 }
 ```
 
-### Event Handling
+### 이벤트 처리
 
-Listen to Vimeo Player state changes in real-time. Use the `useVimeoEvent` Hook to subscribe to [events](https://github.com/vimeo/player.js/#events) in two ways.
+Vimeo Player의 상태 변화를 실시간으로 감지하고 반응할 수 있습니다. `useVimeoEvent` Hook을 사용해 두 가지 방식으로 [이벤트](https://github.com/vimeo/player.js/#events)를 구독할 수 있습니다.
 
 ```tsx
 import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
@@ -67,12 +67,12 @@ function App() {
 
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
   
-  // Method 1: Receive as state (timeupdate event supports interval configuration)
-  const timeupdateState = useVimeoEvent(player, 'timeupdate', 250); // 250ms interval (default)
+  // 방법 1: 상태로 받기 (timeupdate 이벤트는 interval 설정 가능)
+  const timeupdateState = useVimeoEvent(player, 'timeupdate', 250); // 250ms 간격 (기본값)
 
-  // Method 2: Handle with callback
+  // 방법 2: 콜백으로 처리하기
   useVimeoEvent(player, 'playing', (data) => {
-    console.log('Playback started:', data);
+    console.log('재생 시작:', data);
     setIsPlaying(true);
   });
 
@@ -80,7 +80,7 @@ function App() {
     setIsPlaying(false);
   });
 
-  console.log('Current time:', timeupdateState?.seconds);
+  console.log('현재 재생 시간:', timeupdateState?.seconds);
 
   return (
     <VimeoPlayer player={player} />
@@ -88,9 +88,9 @@ function App() {
 }
 ```
 
-### Player Control
+### 플레이어 제어
 
-Control various player functions programmatically through Vimeo Player [methods](https://github.com/vimeo/player.js/#methods) such as play, pause, seek, volume control, and more.
+Vimeo Player의 [메서드](https://github.com/vimeo/player.js/#methods)를 통해 재생, 일시정지, 시간 이동, 볼륨 조절 등 다양한 기능을 프로그래밍 방식으로 제어할 수 있습니다.
 
 ```tsx
 import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
@@ -137,9 +137,9 @@ function App() {
 }
 ```
 
-### Embed Options
+### 임베드 옵션 설정
 
-Customize initial settings through Vimeo Player [embed options](https://developer.vimeo.com/player/sdk/embed).
+Vimeo Player의 [임베드 옵션](https://developer.vimeo.com/player/sdk/embed)을 통해 초기 설정을 커스터마이징할 수 있습니다.
 
 ```tsx
 import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
@@ -159,9 +159,9 @@ function App() {
 }
 ```
 
-### Style Customization
+### 스타일 커스터마이징
 
-Customize the player's iframe or webview styling.
+플레이어의 iframe 또는 webview를 커스터마이징할 수 있습니다.
 
 ```tsx
 import { VimeoPlayer } from 'react-native-vimeo-bridge';
@@ -177,16 +177,16 @@ function App() {
         overflow: 'hidden',
         backgroundColor: '#000',
       }}
-      // Web platform iframe styles
+      // 웹 플랫폼용 iframe 스타일
       iframeStyle={{
         aspectRatio: 16 / 9,
         border: 'none',
       }}
-      // Mobile platform WebView styles
+      // 모바일 플랫폼용 WebView 스타일
       webViewStyle={{
         backgroundColor: 'transparent',
       }}
-      // Mobile platform WebView additional props
+      // 모바일 플랫폼용 WebView 추가 속성
       webViewProps={{
         allowsFullscreenVideo: true,
         mediaPlaybackRequiresUserAction: false,
@@ -196,10 +196,10 @@ function App() {
 }
 ```
 
-## Contributing
+## 기여하기
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+프로젝트 기여 방법과 개발 환경 설정에 대한 자세한 내용은 [기여 가이드](CONTRIBUTING.md)를 참고해 주세요.
 
-## License
+## 라이선스
 
 [MIT](./LICENSE)
