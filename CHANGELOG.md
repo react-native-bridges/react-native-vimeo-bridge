@@ -1,5 +1,11 @@
 # react-native-vimeo-bridge
 
+## 0.1.2
+
+### Patch Changes
+
+- 7a0ae19: docs(readme): add direct link to an Expo Go demo in the "Examples & Demo" section
+
 ## 0.1.1
 
 ### Patch Changes
