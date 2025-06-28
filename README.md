@@ -22,7 +22,7 @@ With the lack of actively maintained Vimeo player libraries for React Native, `r
 ### Examples & Demo
 - [📁 Example Project](/example/) - Real implementation code and various use cases
 - [🌐 Web Demo](https://react-native-vimeo-bridge-example.pages.dev/) - Try it in your browser
-- [🤖 Expo Go](https://snack.expo.dev/@harang/react-native-vimeo-bridge) - Try it in snack expo
+- [🤖 Expo Go](https://snack.expo.dev/@harang/react-native-vimeo-bridge) - Try it on Expo Snack
 
 <p align="center">
   <img src="./assets/example.gif" width="600" />

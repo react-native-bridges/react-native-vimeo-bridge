@@ -22,7 +22,7 @@ React Native에서 Vimeo 플레이어를 사용하기 위해 복잡한 설정과
 ### 예제 및 데모
 - [📁 예제 프로젝트](/example/) - 실제 구현 코드와 다양한 사용 사례
 - [🌐 웹 데모](https://react-native-vimeo-bridge-example.pages.dev/) - 브라우저에서 바로 체험
-- [🤖 Expo Go](https://snack.expo.dev/@harang/react-native-vimeo-bridge) - snack expo에서 바로 체험
+- [🤖 Expo Go](https://snack.expo.dev/@harang/react-native-vimeo-bridge) - Snack Expo에서 바로 체험
 
 <p align="center">
   <img src="./assets/example.gif" width="600" />
