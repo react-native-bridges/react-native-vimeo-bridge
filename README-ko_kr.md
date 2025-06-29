@@ -201,6 +201,31 @@ function App() {
 }
 ```
 
+### [Vimeo oEmbed API](https://developer.vimeo.com/api/oembed/videos)
+`useVimeoOEmbed` 훅을 통해 Vimeo 비디오의 메타데이터를 가져올 수 있습니다.
+
+```tsx
+import { useVimeoOEmbed } from 'react-native-vimeo-bridge';
+
+function App() {
+  const { oEmbed, isLoading, error } = useVimeoOEmbed('https://player.vimeo.com/video/76979871?h=8272103f6e');
+
+  if (isLoading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error.message}</Text>;
+  if (!oEmbed) return null;
+
+  return (
+    <>
+      <Text>{oEmbed.title}</Text>
+      <Image 
+        source={{ uri: oEmbed?.thumbnail_url }} 
+        style={{ width: oEmbed?.thumbnail_width, height: oEmbed?.thumbnail_height }} 
+      />
+    </>
+  )
+}
+```
+
 ## 기여하기
 
 프로젝트 기여 방법과 개발 환경 설정에 대한 자세한 내용은 [기여 가이드](CONTRIBUTING.md)를 참고해 주세요.

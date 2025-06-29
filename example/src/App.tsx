@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoOEmbed, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
 
 const safeNumber = (value: number | undefined): number => {
   return value ?? 0;
@@ -12,11 +12,20 @@ const formatTime = (seconds: number): string => {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
+const vimeoUrl = 'https://player.vimeo.com/video/76979871?h=8272103f6e';
+
 function App() {
-  const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e', {
+  const player = useVimeoPlayer(vimeoUrl, {
     autoplay: true,
     controls: true,
   });
+
+  const { oEmbed, isLoading, error } = useVimeoOEmbed(vimeoUrl, {
+    autoplay: true,
+    controls: true,
+  });
+
+  console.log('oEmbed', oEmbed, isLoading, error);
 
   const [playing, setPlaying] = useState(false);
   const [videoId, setVideoId] = useState<number | undefined>(undefined);
