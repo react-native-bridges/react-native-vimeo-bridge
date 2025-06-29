@@ -3,7 +3,7 @@ import type { DimensionValue, StyleProp, ViewStyle } from 'react-native';
 import type { WebViewProps } from 'react-native-webview';
 import type { WebViewSourceUri } from 'react-native-webview/lib/WebViewTypes';
 import type VimeoPlayerInstance from '../module/VimeoPlayerInstance';
-import type { VimeoPlayerEventMap } from './vimeo';
+import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './vimeo';
 
 export type VimeoSource =
   | string
@@ -38,4 +38,12 @@ export type VimeoPlayerProps = {
    * @platform ios, android
    */
   webViewStyle?: StyleProp<ViewStyle>;
+};
+
+export type VimeoEmbedOptions = Omit<VimeoPlayerOptions, 'id' | 'url'> & {
+  width?: number;
+  height?: number;
+  maxwidth?: number;
+  maxheight?: number;
+  responsive?: boolean;
 };

@@ -201,6 +201,31 @@ function App() {
 }
 ```
 
+### [Vimeo oEmbed API](https://developer.vimeo.com/api/oembed/videos)
+Use the `useVimeoOEmbed` hook to fetch Vimeo video metadata.
+
+```tsx
+import { useVimeoOEmbed } from 'react-native-vimeo-bridge';
+
+function App() {
+ const { oEmbed, isLoading, error } = useVimeoOEmbed('https://player.vimeo.com/video/76979871?h=8272103f6e');
+
+ if (isLoading) return <Text>Loading...</Text>;
+ if (error) return <Text>Error: {error.message}</Text>;
+ if (!oEmbed) return null;
+
+ return (
+   <>
+     <Text>{oEmbed.title}</Text>
+     <Image 
+       source={{ uri: oEmbed?.thumbnail_url }} 
+       style={{ width: oEmbed?.thumbnail_width, height: oEmbed?.thumbnail_height }} 
+     />
+   </>
+ )
+}
+```
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
