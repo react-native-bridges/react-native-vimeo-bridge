@@ -34,5 +34,5 @@ export function createVimeoOEmbedUrl(url: string, params?: VimeoEmbedOptions): s
     }
   }
 
-  return searchParams.toString() ? `${baseUrl}?${searchParams}` : baseUrl;
+  return searchParams.toString() ? `${baseUrl}&${searchParams}` : baseUrl;
 }
