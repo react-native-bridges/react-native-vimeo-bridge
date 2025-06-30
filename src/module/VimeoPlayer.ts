@@ -1,17 +1,17 @@
 import { INTERNAL_SET_CONTROLLER_INSTANCE } from '../symbol';
-import type { VimeoSource } from '../types';
-import type { EventCallback, VimeoPlayerEventMap, VimeoPlayerOptions } from '../types/vimeo';
+import type { VimeoEmbedOptions, VimeoSource } from '../types';
+import type { EventCallback, VimeoPlayerEventMap } from '../types/vimeo';
 import { parseVimeoSource } from '../utils';
 import type WebVimeoPlayerController from './WebVimeoPlayerController';
 import type WebviewVimeoPlayerController from './WebviewVimeoPlayerController';
 
-class VimeoPlayerInstance {
+class VimeoPlayer {
   private listeners: Map<keyof VimeoPlayerEventMap, Set<EventCallback>> = new Map();
   private source: string | null;
-  private options?: VimeoPlayerOptions;
+  private options?: VimeoEmbedOptions;
   private controller: WebviewVimeoPlayerController | WebVimeoPlayerController | null = null;
 
-  constructor(source: VimeoSource, options?: VimeoPlayerOptions) {
+  constructor(source: VimeoSource, options?: VimeoEmbedOptions) {
     this.source = parseVimeoSource(source);
     this.options = options;
   }
@@ -20,7 +20,7 @@ class VimeoPlayerInstance {
     return this.source;
   }
 
-  getOptions(): VimeoPlayerOptions | undefined {
+  getOptions(): VimeoEmbedOptions | undefined {
     return this.options;
   }
 
@@ -131,4 +131,4 @@ class VimeoPlayerInstance {
   }
 }
 
-export default VimeoPlayerInstance;
+export default VimeoPlayer;

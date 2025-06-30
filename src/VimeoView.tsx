@@ -3,22 +3,15 @@ import { type DataDetectorTypes, Dimensions, StyleSheet } from 'react-native';
 import WebView, { type WebViewMessageEvent } from 'react-native-webview';
 import WebviewVimeoPlayerController from './module/WebviewVimeoPlayerController';
 import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
-import type { VimeoPlayerProps } from './types';
+import type { VimeoViewProps } from './types';
 import type { CommandResult, ReadyResult } from './types/message';
-import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './types/vimeo';
+import type { VimeoPlayerEventMap } from './types/vimeo';
 import { webviewScripts } from './utils/webviewScripts';
-import VimeoPlayerWrapper from './VimeoPlayerWrapper';
+import VimeoViewWrapper from './VimeoViewWrapper';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const VimeoPlayer = ({
-  player,
-  height = 200,
-  width = screenWidth,
-  style,
-  webViewProps,
-  webViewStyle,
-}: VimeoPlayerProps) => {
+function VimeoView({ player, height = 200, width = screenWidth, style, webViewProps, webViewStyle }: VimeoViewProps) {
   const webViewRef = useRef<WebView>(null);
   const playerRef = useRef<WebviewVimeoPlayerController>(null);
 
@@ -78,7 +71,7 @@ const VimeoPlayer = ({
 
     const embedOptions = player.getOptions();
 
-    const options: VimeoPlayerOptions = {
+    const options = {
       url: sourceUri,
       ...embedOptions,
     };
@@ -209,7 +202,7 @@ const VimeoPlayer = ({
   }, []);
 
   return (
-    <VimeoPlayerWrapper width={width} height={height} style={style}>
+    <VimeoViewWrapper width={width} height={height} style={style}>
       <WebView
         domStorageEnabled
         allowsFullscreenVideo
@@ -232,9 +225,9 @@ const VimeoPlayer = ({
         source={{ html: createPlayerHTML() }}
         onMessage={handleMessage}
       />
-    </VimeoPlayerWrapper>
+    </VimeoViewWrapper>
   );
-};
+}
 
 const styles = StyleSheet.create({
   webView: {
@@ -242,6 +235,4 @@ const styles = StyleSheet.create({
   },
 });
 
-VimeoPlayer.displayName = 'VimeoPlayer';
-
-export default VimeoPlayer;
+export default VimeoView;

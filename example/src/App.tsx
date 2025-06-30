@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useVimeoEvent, useVimeoOEmbed, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoOEmbed, useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 const safeNumber = (value: number | undefined): number => {
   return value ?? 0;
@@ -130,7 +130,7 @@ function App() {
           <Text style={styles.subtitle}>Video ID: {videoId}</Text>
           <Text style={styles.subtitle}>Playback rate: {playbackRate?.playbackRate ?? 1}x</Text>
         </View>
-        <VimeoPlayer
+        <VimeoView
           player={player}
           height={Platform.OS === 'web' ? 'auto' : undefined}
           webViewProps={{

@@ -2,8 +2,8 @@ import type { CSSProperties } from 'react';
 import type { DimensionValue, StyleProp, ViewStyle } from 'react-native';
 import type { WebViewProps } from 'react-native-webview';
 import type { WebViewSourceUri } from 'react-native-webview/lib/WebViewTypes';
-import type VimeoPlayerInstance from '../module/VimeoPlayerInstance';
-import type { VimeoPlayerEventMap, VimeoPlayerOptions } from './vimeo';
+import type VimeoPlayer from '../module/VimeoPlayer';
+import type { EmbedOptions, VimeoPlayerEventMap } from './vimeo';
 
 export type VimeoSource =
   | string
@@ -16,8 +16,8 @@ export type VimeoPlayerStatus = Omit<
   'bufferend' | 'bufferstart' | 'enterpictureinpicture' | 'leavepictureinpicture'
 >;
 
-export type VimeoPlayerProps = {
-  player: VimeoPlayerInstance;
+export type VimeoViewProps = {
+  player: VimeoPlayer;
   width?: DimensionValue;
   height?: DimensionValue;
   style?: StyleProp<ViewStyle>;
@@ -40,10 +40,7 @@ export type VimeoPlayerProps = {
   webViewStyle?: StyleProp<ViewStyle>;
 };
 
-export type VimeoEmbedOptions = Omit<VimeoPlayerOptions, 'id' | 'url'> & {
-  width?: number;
-  height?: number;
-  maxwidth?: number;
-  maxheight?: number;
-  responsive?: boolean;
-};
+export type VimeoEmbedOptions = Omit<
+  EmbedOptions,
+  'id' | 'url' | 'width' | 'height' | 'maxwidth' | 'maxheight' | 'responsive'
+>;

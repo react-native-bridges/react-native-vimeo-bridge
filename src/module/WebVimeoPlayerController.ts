@@ -1,4 +1,4 @@
-import type { VimeoPlayer, VimeoPlayerOptions } from '../types/vimeo';
+import type { EmbedOptions, VimeoPlayer } from '../types/vimeo';
 
 class WebVimeoPlayerController {
   private player: VimeoPlayer | null = null;
@@ -56,7 +56,7 @@ class WebVimeoPlayerController {
     return window._vimeoApiPromise;
   }
 
-  createPlayer(containerId: string, options: VimeoPlayerOptions): VimeoPlayer | null {
+  createPlayer(containerId: string, options: EmbedOptions): VimeoPlayer | null {
     if (typeof window === 'undefined' || !window.Vimeo) {
       return null;
     }

@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react';
 import { type DimensionValue, type StyleProp, StyleSheet, View, type ViewStyle } from 'react-native';
 
-type VimeoPlayerWrapperProps = {
+type VimeoViewWrapperProps = {
   children: ReactNode;
   width?: DimensionValue;
   height?: DimensionValue;
   style?: StyleProp<ViewStyle>;
 };
 
-function VimeoPlayerWrapper({ children, width, height, style }: VimeoPlayerWrapperProps) {
+function VimeoViewWrapper({ children, width, height, style }: VimeoViewWrapperProps) {
   const safeStyles = StyleSheet.flatten([styles.container, { width, height }, style]);
 
   return <View style={safeStyles}>{children}</View>;
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VimeoPlayerWrapper;
+export default VimeoViewWrapper;
