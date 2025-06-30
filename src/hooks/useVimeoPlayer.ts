@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import VimeoPlayer from '../module/VimeoPlayer';
 import type { VimeoEmbedOptions, VimeoSource } from '../types';
+import { parseVimeoSource } from '../utils';
 
 /**
  * @param source - The source of the Vimeo video. It can be a string or an object with a `url` property.
@@ -9,21 +10,40 @@ import type { VimeoEmbedOptions, VimeoSource } from '../types';
  */
 const useVimeoPlayer = (source: VimeoSource, options?: VimeoEmbedOptions): VimeoPlayer => {
   const playerRef = useRef<VimeoPlayer | null>(null);
+  const previousSource = useRef<string | null | undefined>(undefined);
+  const isFastRefresh = useRef(false);
+
+  const parsedSource = parseVimeoSource(source);
+
+  if (playerRef.current == null) {
+    playerRef.current = new VimeoPlayer(parsedSource, options);
+  }
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only once
   const player = useMemo(() => {
-    if (!playerRef.current) {
-      playerRef.current = new VimeoPlayer(source, options);
+    let newPlayer = playerRef.current;
+
+    if (!newPlayer || previousSource.current !== parsedSource) {
+      playerRef.current?.dispose();
+      newPlayer = new VimeoPlayer(parsedSource, options);
+      playerRef.current = newPlayer;
+      previousSource.current = parsedSource;
+    } else {
+      isFastRefresh.current = true;
     }
 
-    return playerRef.current;
-  }, [source]);
+    return newPlayer;
+  }, [parsedSource]);
 
   useEffect(() => {
+    isFastRefresh.current = false;
+
     return () => {
-      player.dispose();
+      if (playerRef.current && !isFastRefresh.current) {
+        playerRef.current?.dispose();
+      }
     };
-  }, [player]);
+  }, []);
 
   return player;
 };

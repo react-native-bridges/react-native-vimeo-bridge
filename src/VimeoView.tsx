@@ -65,7 +65,7 @@ function VimeoView({ player, height = 200, width = screenWidth, style, webViewPr
   const createPlayerHTML = useCallback(() => {
     const sourceUri = player.getSource();
 
-    if (!sourceUri) {
+    if (sourceUri === null) {
       return '<html><body><div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: #fff;">Invalid Vimeo URL</div></body></html>';
     }
 
