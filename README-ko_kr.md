@@ -14,7 +14,7 @@ React Native에서 Vimeo 플레이어를 사용하기 위해 복잡한 설정과
 - ✅ **크로스 플랫폼** - iOS, Android, Web 모든 플랫폼 지원
 - ✅ **New Architecture 호환** - React Native의 최신 아키텍처 완벽 지원
 - ✅ **풍부한 API** - Vimeo Player JS API의 모든 핵심 기능 지원
-- ✅ **React다운 설계** - Hook 기반의 직관적이고 사용하기 쉬운 API
+- ✅ **React Native 개발** - Expo의 Hook 기반 방식처럼, 직관적이고 사용하기 쉬운 API를 제공
 - ✅ **Expo 호환** - Expo 프로젝트에서도 바로 사용 가능
 
 ## 빠른 시작
@@ -49,13 +49,13 @@ bun add react-native-vimeo-bridge
 ### 기본 사용법
 
 ```tsx
-import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -65,7 +65,7 @@ function App() {
 Vimeo Player의 상태 변화를 실시간으로 감지하고 반응할 수 있습니다. `useVimeoEvent` Hook을 사용해 두 가지 방식으로 [이벤트](https://github.com/vimeo/player.js/#events)를 구독할 수 있습니다.
 
 ```tsx
-import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -88,7 +88,7 @@ function App() {
   console.log('현재 재생 시간:', timeupdateState?.seconds);
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -98,7 +98,7 @@ function App() {
 Vimeo Player의 [메서드](https://github.com/vimeo/player.js/#methods)를 통해 재생, 일시정지, 시간 이동, 볼륨 조절 등 다양한 기능을 프로그래밍 방식으로 제어할 수 있습니다.
 
 ```tsx
-import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
@@ -122,7 +122,7 @@ function App() {
 
   return (
     <View>
-      <VimeoPlayer player={player} />
+      <VimeoView player={player} />
 
       <View style={styles.controls}>
         <TouchableOpacity onPress={() => seekTo(currentTime - 10)}>
@@ -147,7 +147,7 @@ function App() {
 Vimeo Player의 [임베드 옵션](https://developer.vimeo.com/player/sdk/embed)을 통해 초기 설정을 커스터마이징할 수 있습니다.
 
 ```tsx
-import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e', {
@@ -159,7 +159,7 @@ function App() {
   });
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -169,11 +169,11 @@ function App() {
 플레이어의 iframe 또는 webview를 커스터마이징할 수 있습니다.
 
 ```tsx
-import { VimeoPlayer } from 'react-native-vimeo-bridge';
+import { VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   return (
-    <VimeoPlayer
+    <VimeoView
       player={player}
       height={400}
       width="100%"

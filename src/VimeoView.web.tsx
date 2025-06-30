@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import WebVimeoPlayerController from './module/WebVimeoPlayerController';
 import { INTERNAL_SET_CONTROLLER_INSTANCE } from './symbol';
-import type { VimeoPlayerProps } from './types';
-import VimeoPlayerWrapper from './VimeoPlayerWrapper';
+import type { VimeoViewProps } from './types';
+import VimeoViewWrapper from './VimeoViewWrapper';
 
-const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoPlayerProps) => {
+function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
   const playerRef = useRef<WebVimeoPlayerController | null>(null);
+
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const { width: screenWidth } = useWindowDimensions();
 
@@ -54,7 +55,7 @@ const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoP
   }, []);
 
   return (
-    <VimeoPlayerWrapper width={width ?? screenWidth} height={height} style={style}>
+    <VimeoViewWrapper width={width ?? screenWidth} height={height} style={style}>
       <div
         ref={containerRef}
         style={{
@@ -63,10 +64,8 @@ const VimeoPlayer = ({ player, height = 200, width, style, iframeStyle }: VimeoP
           ...iframeStyle,
         }}
       />
-    </VimeoPlayerWrapper>
+    </VimeoViewWrapper>
   );
-};
+}
 
-VimeoPlayer.displayName = 'VimeoPlayer';
-
-export default VimeoPlayer;
+export default VimeoView;

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { VimeoEmbedOptions } from '../types';
 import { createVimeoOEmbedUrl } from '../utils';
 
-type VimeoOEmbed = {
+export type VimeoOEmbed = {
   type: 'video';
   version: string;
   provider_name: 'Vimeo';

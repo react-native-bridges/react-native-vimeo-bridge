@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type VimeoPlayerInstance from '../module/VimeoPlayerInstance';
+import type VimeoPlayer from '../module/VimeoPlayer';
 import type { VimeoPlayerStatus } from '../types';
 import type { EventCallback, VimeoPlayerEventMap } from '../types/vimeo';
 
@@ -11,7 +11,7 @@ import type { EventCallback, VimeoPlayerEventMap } from '../types/vimeo';
  * @returns void
  */
 function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
-  player: VimeoPlayerInstance,
+  player: VimeoPlayer,
   eventType: T,
   callback: EventCallback<VimeoPlayerEventMap[T]>,
   deps?: React.DependencyList,
@@ -24,7 +24,7 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
  * @returns The event data.
  */
 function useVimeoEvent(
-  player: VimeoPlayerInstance,
+  player: VimeoPlayer,
   eventType: 'timeupdate',
   throttleMs?: number,
 ): VimeoPlayerStatus['timeupdate'] | null;
@@ -35,7 +35,7 @@ function useVimeoEvent(
  * @returns The event data.
  */
 function useVimeoEvent<T extends Exclude<keyof VimeoPlayerStatus, 'timeupdate'>>(
-  player: VimeoPlayerInstance,
+  player: VimeoPlayer,
   eventType: T,
 ): VimeoPlayerStatus[T] | null;
 
@@ -47,7 +47,7 @@ function useVimeoEvent<T extends Exclude<keyof VimeoPlayerStatus, 'timeupdate'>>
  * @returns The event data. If it is a callback, it will return `undefined`.
  */
 function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
-  player: VimeoPlayerInstance,
+  player: VimeoPlayer,
   eventType: T,
   callbackOrThrottle?: EventCallback<VimeoPlayerEventMap[T]> | number,
   deps?: React.DependencyList,

@@ -14,7 +14,7 @@ With the lack of actively maintained Vimeo player libraries for React Native, `r
 - ✅ **Cross-Platform** - Works on iOS, Android, and Web
 - ✅ **New Architecture Compatible** - Full support for React Native's latest architecture
 - ✅ **Rich API Support** - Access to all core Vimeo Player JS API features
-- ✅ **React-Native Design** - Intuitive, easy-to-use Hook-based API
+- ✅ **React Native Development** - Provides an intuitive, easy-to-use Hook-based API, much like Expo's approach
 - ✅ **Expo Compatible** - Ready to use in Expo projects
 
 ## Quick Start
@@ -49,13 +49,13 @@ bun add react-native-vimeo-bridge
 ### Basic Usage
 
 ```tsx
-import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -65,7 +65,7 @@ function App() {
 Listen to Vimeo Player state changes in real-time. Use the `useVimeoEvent` Hook to subscribe to [events](https://github.com/vimeo/player.js/#events) in two ways.
 
 ```tsx
-import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -88,7 +88,7 @@ function App() {
   console.log('Current time:', timeupdateState?.seconds);
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -98,7 +98,7 @@ function App() {
 Control various player functions programmatically through Vimeo Player [methods](https://github.com/vimeo/player.js/#methods) such as play, pause, seek, volume control, and more.
 
 ```tsx
-import { useVimeoEvent, useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoEvent, useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e');
@@ -122,7 +122,7 @@ function App() {
 
   return (
     <View>
-      <VimeoPlayer player={player} />
+      <VimeoView player={player} />
 
       <View style={styles.controls}>
         <TouchableOpacity onPress={() => seekTo(currentTime - 10)}>
@@ -147,7 +147,7 @@ function App() {
 Customize initial settings through Vimeo Player [embed options](https://developer.vimeo.com/player/sdk/embed).
 
 ```tsx
-import { useVimeoPlayer, VimeoPlayer } from 'react-native-vimeo-bridge';
+import { useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   const player = useVimeoPlayer('https://player.vimeo.com/video/76979871?h=8272103f6e', {
@@ -159,7 +159,7 @@ function App() {
   });
 
   return (
-    <VimeoPlayer player={player} />
+    <VimeoView player={player} />
   );
 }
 ```
@@ -169,11 +169,11 @@ function App() {
 Customize the player's iframe or webview styling.
 
 ```tsx
-import { VimeoPlayer } from 'react-native-vimeo-bridge';
+import { VimeoView } from 'react-native-vimeo-bridge';
 
 function App() {
   return (
-    <VimeoPlayer
+    <VimeoView
       player={player}
       height={400}
       width="100%"
