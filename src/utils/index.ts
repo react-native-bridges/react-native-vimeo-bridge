@@ -1,7 +1,11 @@
 import { VIMEO_VIDEO_URL_REGEX } from '../constants';
 import type { VimeoEmbedOptions, VimeoSource } from '../types';
 
-export const parseVimeoSource = (source: VimeoSource): string | null => {
+export const parseVimeoSource = (source: VimeoSource): string | null | undefined => {
+  if (!source) {
+    return;
+  }
+
   if (typeof source === 'string') {
     return VIMEO_VIDEO_URL_REGEX.test(source) ? source : null;
   }
@@ -9,7 +13,7 @@ export const parseVimeoSource = (source: VimeoSource): string | null => {
   return VIMEO_VIDEO_URL_REGEX.test(source.url) ? source.url : null;
 };
 
-export function createVimeoOEmbedUrl(url: string, params?: VimeoEmbedOptions): string {
+export function createVimeoOEmbedUrl(url?: string | null, params?: VimeoEmbedOptions): string {
   if (!url) {
     return '';
   }

@@ -22,7 +22,6 @@ function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoVie
 
   useEffect(() => {
     const source = player.getSource();
-    const listeners = player.getListeners();
 
     if (isInitialized && containerRef.current && source) {
       const containerId = `vimeo-player`;
@@ -36,9 +35,26 @@ function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoVie
 
       const vimeoPlayer = playerRef.current?.getVimeoPlayer();
 
-      listeners.keys().forEach((event) => {
-        vimeoPlayer?.on(event, (data) => {
-          player.emit(event, data);
+      const listeners = player.getListeners();
+
+      vimeoPlayer?.on('loaded', (data) => {
+        const iframe = document.getElementById(containerId)?.querySelector('iframe');
+
+        if (iframe) {
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+        }
+
+        if (listeners.has('loaded')) {
+          player.emit('loaded', data);
+        }
+
+        listeners.keys().forEach((event) => {
+          if (event !== 'loaded') {
+            vimeoPlayer?.on(event, (data) => {
+              player.emit(event, data);
+            });
+          }
         });
       });
 

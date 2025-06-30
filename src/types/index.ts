@@ -7,6 +7,8 @@ import type { EmbedOptions, VimeoPlayerEventMap } from './vimeo';
 
 export type VimeoSource =
   | string
+  | null
+  | undefined
   | {
       url: string;
     };

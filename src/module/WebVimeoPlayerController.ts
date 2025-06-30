@@ -77,17 +77,6 @@ class WebVimeoPlayerController {
 
     this.player = new window.Vimeo.Player(containerId, options);
 
-    if (this.player) {
-      this.player.on('loaded', () => {
-        const iframe = container.querySelector('iframe');
-
-        if (iframe) {
-          iframe.style.width = '100%';
-          iframe.style.height = '100%';
-        }
-      });
-    }
-
     return this.player;
   }
 

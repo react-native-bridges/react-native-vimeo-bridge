@@ -30,7 +30,7 @@ export type VimeoOEmbed = {
  * @param url - The URL of the Vimeo video.
  * @returns The oEmbed data, loading state, and error.
  */
-const useVimeoOEmbed = (url: string, params?: VimeoEmbedOptions) => {
+const useVimeoOEmbed = (url?: string | null, params?: VimeoEmbedOptions) => {
   const [oEmbed, setOEmbed] = useState<VimeoOEmbed | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -38,6 +38,10 @@ const useVimeoOEmbed = (url: string, params?: VimeoEmbedOptions) => {
   const oEmbedUrl = createVimeoOEmbedUrl(url, params);
 
   useEffect(() => {
+    if (!oEmbedUrl) {
+      return;
+    }
+
     const controller = new AbortController();
 
     setError(null);
@@ -72,9 +76,7 @@ const useVimeoOEmbed = (url: string, params?: VimeoEmbedOptions) => {
       }
     };
 
-    if (oEmbedUrl) {
-      fetchOEmbed();
-    }
+    fetchOEmbed();
 
     return () => {
       controller.abort();
