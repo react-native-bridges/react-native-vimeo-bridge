@@ -1,5 +1,12 @@
 # react-native-vimeo-bridge
 
+## 0.2.0
+
+### Minor Changes
+
+- 14df839: feat(hook): add useVimeoOEmbed hook for fetching Vimeo video metadata
+  - Reference: [Working with oEmbed: Embedding Videos](https://developer.vimeo.com/api/oembed/videos)
+
 ## 0.1.2
 
 ### Patch Changes
