@@ -76,7 +76,6 @@
     "@commitlint/config-conventional": "^19.6.0",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/babel-preset": "0.78.2",
-    "@types/bun": "latest",
     "@types/jest": "^29.5.5",
     "@types/react": "^19.0.12",
     "commitlint": "^19.6.1",
