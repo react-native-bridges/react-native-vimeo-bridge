@@ -23,9 +23,6 @@ importers:
       '@react-native/babel-preset':
         specifier: 0.78.2
         version: 0.78.2(@babel/core@7.27.4)(@babel/preset-env@7.27.2(@babel/core@7.27.4))
-      '@types/bun':
-        specifier: latest
-        version: 1.2.17
       '@types/jest':
         specifier: ^29.5.5
         version: 29.5.14
@@ -1308,9 +1305,6 @@ packages:
   '@types/babel__traverse@7.20.7':
     resolution: {integrity: sha512-dkO5fhS7+/oos4ciWxyEyjWe48zmG6wbCheo/G2ZnHx4fs3EU6YC6UM8rk56gAjNJ9P3MTH2jo5jb92/K6wbng==}
 
-  '@types/bun@1.2.17':
-    resolution: {integrity: sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q==}
-
   '@types/conventional-commits-parser@5.0.1':
     resolution: {integrity: sha512-7uz5EHdzz2TqoMfV7ee61Egf5y6NkcO4FB/1iCCQnbeiI1F3xzv3vK5dBCXUCLQgGYS+mUeigK1iKQzvED+QnQ==}
 
@@ -1588,9 +1582,6 @@ packages:
 
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
-
-  bun-types@1.2.17:
-    resolution: {integrity: sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ==}
 
   bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -6007,10 +5998,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.27.6
 
-  '@types/bun@1.2.17':
-    dependencies:
-      bun-types: 1.2.17
-
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
       '@types/node': 24.0.3
@@ -6343,10 +6330,6 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  bun-types@1.2.17:
-    dependencies:
-      '@types/node': 24.0.3
 
   bytes@3.1.2: {}
 
