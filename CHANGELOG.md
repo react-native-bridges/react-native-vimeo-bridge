@@ -1,5 +1,11 @@
 # react-native-vimeo-bridge
 
+## 1.0.2
+
+### Patch Changes
+
+- b914d0b: chore(deps): remove unused @types/bun dependency. (No changes to app functionality)
+
 ## 1.0.1
 
 ### Patch Changes
