@@ -1,5 +1,11 @@
 # react-native-vimeo-bridge
 
+## 1.0.4
+
+### Patch Changes
+
+- ebb3792: docs(readme): change the text in Korean to English
+
 ## 1.0.3
 
 ### Patch Changes
