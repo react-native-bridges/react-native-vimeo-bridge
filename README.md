@@ -126,15 +126,15 @@ function App() {
 
       <View style={styles.controls}>
         <TouchableOpacity onPress={() => seekTo(currentTime - 10)}>
-          <Text>⏪ -10초</Text>
+          <Text>⏪ -10s</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handlePlayPause}>
-          <Text>{isPlaying ? '⏸️ 일시정지' : '▶️ 재생'}</Text>
+          <Text>{isPlaying ? '⏸️ Pause' : '▶️ Play'}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => seekTo(currentTime + 10)}>
-          <Text>⏭️ +10초</Text>
+          <Text>⏭️ +10s</Text>
         </TouchableOpacity>
       </View>
     </View>
