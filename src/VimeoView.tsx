@@ -173,7 +173,35 @@ function VimeoView({ player, height = 200, width = screenWidth, style, webViewPr
                     getVideoWidth: () => player.getVideoWidth(),
                     getVideoHeight: () => player.getVideoHeight(),
                     getVideoUrl: () => player.getVideoUrl(),
-                    destroy: () => player.destroy(),
+                    destroy: () => {
+                      player.off('play');
+                      player.off('playing');
+                      player.off('pause');
+                      player.off('ended');
+                      player.off('timeupdate');
+                      player.off('progress');
+                      player.off('seeking');
+                      player.off('seeked');
+                      player.off('texttrackchange');
+                      player.off('chapterchange');
+                      player.off('cuechange');
+                      player.off('cuepoint');
+                      player.off('volumechange');
+                      player.off('playbackratechange');
+                      player.off('bufferstart');
+                      player.off('bufferend');
+                      player.off('error');
+                      player.off('loaded');
+                      player.off('durationchange');
+                      player.off('fullscreenchange');
+                      player.off('qualitychange');
+                      player.off('camerachange');
+                      player.off('resize');
+                      player.off('enterpictureinpicture');
+                      player.off('leavepictureinpicture');
+                      player.destroy();
+                    },
+                    off: (event) => player.off(event),
                   }
                 }
               })();

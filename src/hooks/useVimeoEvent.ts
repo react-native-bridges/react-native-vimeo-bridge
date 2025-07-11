@@ -53,6 +53,7 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
   deps?: React.DependencyList,
 ): VimeoPlayerEventMap[T] | null | undefined {
   const isCallback = typeof callbackOrThrottle === 'function';
+  const throttleMs = typeof callbackOrThrottle === 'number' ? callbackOrThrottle : undefined;
 
   const callbackRef = useRef<EventCallback<VimeoPlayerEventMap[T]> | null>(isCallback ? callbackOrThrottle : null);
 
@@ -73,8 +74,7 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
       }
 
       if (!isCallback) {
-        if (eventType === 'timeupdate' && typeof callbackOrThrottle === 'number') {
-          const throttleMs = callbackOrThrottle;
+        if (eventType === 'timeupdate' && throttleMs) {
           const now = Date.now();
           if (now - lastUpdateRef.current < throttleMs) {
             return;
@@ -87,7 +87,7 @@ function useVimeoEvent<T extends keyof VimeoPlayerEventMap>(
     });
 
     return unsubscribe;
-  }, [player, eventType, isCallback, callbackOrThrottle]);
+  }, [player, eventType, isCallback, throttleMs]);
 
   return isCallback ? undefined : data;
 }
