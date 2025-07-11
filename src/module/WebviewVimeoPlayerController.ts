@@ -1,4 +1,5 @@
 import type WebView from 'react-native-webview';
+import type { EventCallback } from '../types/vimeo';
 
 class WebviewVimeoPlayerController {
   private webViewRef: React.RefObject<WebView | null>;
@@ -94,6 +95,10 @@ class WebviewVimeoPlayerController {
 
   async destroy(): Promise<void> {
     await this.executeCommand('destroy');
+  }
+
+  async off(event: string, _callback?: EventCallback): Promise<void> {
+    await this.executeCommand('off', [event]);
   }
 
   private executeCommand(

@@ -46,6 +46,7 @@ class VimeoPlayer {
       eventSet?.delete(callback);
 
       if (eventSet?.size === 0) {
+        this.controller?.off(eventType);
         this.listeners.delete(eventType);
       }
     };

@@ -1,4 +1,4 @@
-import type { EmbedOptions, VimeoPlayer } from '../types/vimeo';
+import type { EmbedOptions, EventCallback, VimeoPlayer } from '../types/vimeo';
 
 class WebVimeoPlayerController {
   private player: VimeoPlayer | null = null;
@@ -150,6 +150,10 @@ class WebVimeoPlayerController {
 
   async getVideoUrl(): Promise<string> {
     return this.player?.getVideoUrl() ?? '';
+  }
+
+  off(event: string, callback?: EventCallback): void {
+    this.player?.off(event, callback);
   }
 
   dispose(): void {
