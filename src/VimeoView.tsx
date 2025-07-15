@@ -213,7 +213,7 @@ function VimeoView({ player, height = 200, width = screenWidth, style, webViewPr
 
   useEffect(() => {
     if (isReady && webViewRef.current) {
-      const controller = WebviewVimeoPlayerController.getInstance(webViewRef);
+      const controller = WebviewVimeoPlayerController.createInstance(webViewRef);
 
       playerRef.current = controller;
 

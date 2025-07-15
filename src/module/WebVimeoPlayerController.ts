@@ -2,14 +2,9 @@ import type { EmbedOptions, EventCallback, VimeoPlayer } from '../types/vimeo';
 
 class WebVimeoPlayerController {
   private player: VimeoPlayer | null = null;
-  private static instance: WebVimeoPlayerController | null = null;
 
-  static getInstance(): WebVimeoPlayerController {
-    if (!WebVimeoPlayerController.instance) {
-      WebVimeoPlayerController.instance = new WebVimeoPlayerController();
-    }
-
-    return WebVimeoPlayerController.instance;
+  static createInstance(): WebVimeoPlayerController {
+    return new WebVimeoPlayerController();
   }
 
   static initialize(): Promise<void> {
@@ -165,8 +160,6 @@ class WebVimeoPlayerController {
       }
       this.player = null;
     }
-
-    WebVimeoPlayerController.instance = null;
   }
 }
 

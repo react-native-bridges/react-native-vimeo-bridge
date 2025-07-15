@@ -16,6 +16,7 @@ With the lack of actively maintained Vimeo player libraries for React Native, `r
 - ✅ **Rich API Support** - Access to all core Vimeo Player JS API features
 - ✅ **React Native Development** - Provides an intuitive, easy-to-use Hook-based API, much like Expo's approach
 - ✅ **Expo Compatible** - Ready to use in Expo projects
+- ✅ **Multiple instance support** - manage multiple players independently
 
 ## Quick Start
 
@@ -139,6 +140,27 @@ function App() {
       </View>
     </View>
   );
+}
+```
+
+### Multiple Player Support
+
+Multiple players can be used simultaneously.   
+Each player is managed as an independent instance and automatically cleaned up when the component unmounts.
+
+```tsx
+import { useVimeoPlayer, VimeoView } from 'react-native-vimeo-bridge';
+
+function App() {
+ const player1 = useVimeoPlayer(vimeoUrl1);
+ const player2 = useVimeoPlayer(vimeoUrl2);
+
+ return (
+   <View>
+     <VimeoView player={player1} />
+     <VimeoView player={player2} />
+   </View>
+ );
 }
 ```
 

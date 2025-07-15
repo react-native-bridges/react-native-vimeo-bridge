@@ -16,7 +16,7 @@ function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoVie
   useEffect(() => {
     WebVimeoPlayerController.initialize().then(() => {
       setIsInitialized(true);
-      playerRef.current = WebVimeoPlayerController.getInstance();
+      playerRef.current = WebVimeoPlayerController.createInstance();
     });
   }, []);
 
@@ -24,7 +24,7 @@ function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoVie
     const source = player.getSource();
 
     if (isInitialized && containerRef.current && source) {
-      const containerId = `vimeo-player`;
+      const containerId = `vimeo-player-${Date.now()}`;
       containerRef.current.id = containerId;
       const options = player.getOptions();
 

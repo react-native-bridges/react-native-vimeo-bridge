@@ -5,20 +5,13 @@ class WebviewVimeoPlayerController {
   private webViewRef: React.RefObject<WebView | null>;
   private commandId: number = 0;
   private pendingCommands: Map<string, (result: unknown) => void> = new Map();
-  private static instance: WebviewVimeoPlayerController | null = null;
 
   constructor(webViewRef: React.RefObject<WebView | null>) {
     this.webViewRef = webViewRef;
   }
 
-  static getInstance(webViewRef: React.RefObject<WebView | null>): WebviewVimeoPlayerController {
-    if (!WebviewVimeoPlayerController.instance) {
-      WebviewVimeoPlayerController.instance = new WebviewVimeoPlayerController(webViewRef);
-    } else {
-      WebviewVimeoPlayerController.instance.webViewRef = webViewRef;
-    }
-
-    return WebviewVimeoPlayerController.instance;
+  static createInstance(webViewRef: React.RefObject<WebView | null>): WebviewVimeoPlayerController {
+    return new WebviewVimeoPlayerController(webViewRef);
   }
 
   getPendingCommands(): Map<string, (result: unknown) => void> {
@@ -148,8 +141,6 @@ class WebviewVimeoPlayerController {
   dispose(): void {
     this.pendingCommands.clear();
     this.destroy();
-
-    WebviewVimeoPlayerController.instance = null;
   }
 }
 
