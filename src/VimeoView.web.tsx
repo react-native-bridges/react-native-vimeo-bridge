@@ -24,7 +24,7 @@ function VimeoView({ player, height = 200, width, style, iframeStyle }: VimeoVie
     const source = player.getSource();
 
     if (isInitialized && containerRef.current && source) {
-      const containerId = `vimeo-player-${Date.now()}`;
+      const containerId = `vimeo-player-${Math.random().toString(36).substring(2, 15)}`;
       containerRef.current.id = containerId;
       const options = player.getOptions();
 
