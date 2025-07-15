@@ -1,5 +1,15 @@
 # react-native-vimeo-bridge
 
+## 1.1.0
+
+### Minor Changes
+
+- d8a8dc2: feat: add support for multiple concurrent players
+
+  - Enable simultaneous usage of multiple player instances
+  - Implement independent instance management for each player
+  - Support concurrent playback without interference
+
 ## 1.0.5
 
 ### Patch Changes
