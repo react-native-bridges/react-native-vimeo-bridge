@@ -173,6 +173,9 @@ function VimeoView({ player, height = 200, width = screenWidth, style, webViewPr
                     getVideoWidth: () => player.getVideoWidth(),
                     getVideoHeight: () => player.getVideoHeight(),
                     getVideoUrl: () => player.getVideoUrl(),
+                    requestFullscreen: () => player.requestFullscreen(),
+                    exitFullscreen: () => player.exitFullscreen(),
+                    getFullscreen: () => player.getFullscreen(),
                     destroy: () => {
                       player.off('play');
                       player.off('playing');

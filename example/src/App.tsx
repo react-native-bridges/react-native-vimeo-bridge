@@ -35,6 +35,7 @@ function App() {
   const progress = useVimeoEvent(player, 'progress');
   const volumeStatus = useVimeoEvent(player, 'volumechange');
   const playbackRate = useVimeoEvent(player, 'playbackratechange');
+  const fullscreen = useVimeoEvent(player, 'fullscreenchange');
 
   const volume = safeNumber(volumeStatus?.volume);
   const currentTime = safeNumber(timeupdate?.seconds);
@@ -124,7 +125,7 @@ function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Text style={styles.title}>Vimeo Player</Text>
           <Text style={styles.subtitle}>Video ID: {videoId}</Text>
@@ -225,6 +226,35 @@ function App() {
           </View>
         </View>
 
+        <View style={styles.fullscreenSection}>
+          <Text
+            style={styles.sectionTitle}
+          >{`Fullscreen control (${fullscreen?.fullscreen ? 'fullscreen' : 'not fullscreen'})`}</Text>
+          <View style={styles.fullscreenControls}>
+            <TouchableOpacity
+              style={[styles.button, styles.fullscreenButton]}
+              onPress={async () => {
+                await player.requestFullscreen();
+
+                setTimeout(async () => {
+                  await player.exitFullscreen();
+                }, 3000);
+              }}
+            >
+              <Text style={styles.buttonText}>{'Enter fullscreen (auto-exit in 3s)'}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.button, styles.fullscreenButton]}
+              onPress={async () => {
+                await player.exitFullscreen();
+              }}
+            >
+              <Text style={styles.buttonText}>{'Exit fullscreen'}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View style={styles.infoSection}>
           <TouchableOpacity style={[styles.button, styles.infoButton]} onPress={getPlayerInfo}>
             <Text style={styles.buttonText}>📊 Player info</Text>
@@ -239,6 +269,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+    paddingBottom: 50,
+  },
+  contentContainer: {
+    flexGrow: 1,
   },
   header: {
     padding: 16,
@@ -348,7 +382,7 @@ const styles = StyleSheet.create({
   volumeButton: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#9E9E9E',
+    backgroundColor: '#607D8B',
     borderRadius: 6,
     minWidth: 60,
   },
@@ -377,6 +411,25 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
     minWidth: 50,
+  },
+  fullscreenSection: {
+    margin: 16,
+    marginBottom: 8,
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+  },
+  fullscreenButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: '#607D8B',
+    borderRadius: 6,
+    minWidth: 60,
+  },
+  fullscreenControls: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
   },
   activeButton: {
     backgroundColor: '#FF5722',

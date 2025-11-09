@@ -86,6 +86,18 @@ class WebviewVimeoPlayerController {
     return this.executeCommand('getVideoUrl', [], true);
   }
 
+  async requestFullscreen(): Promise<void> {
+    await this.executeCommand('requestFullscreen');
+  }
+
+  async exitFullscreen(): Promise<void> {
+    await this.executeCommand('exitFullscreen');
+  }
+
+  async getFullscreen(): Promise<boolean> {
+    return this.executeCommand('getFullscreen', [], true);
+  }
+
   async destroy(): Promise<void> {
     await this.executeCommand('destroy');
   }

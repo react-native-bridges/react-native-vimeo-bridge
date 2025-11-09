@@ -129,6 +129,18 @@ class VimeoPlayer {
   async getVideoUrl(): Promise<string> {
     return this.controller?.getVideoUrl() ?? '';
   }
+
+  async requestFullscreen(): Promise<void> {
+    await this.controller?.requestFullscreen();
+  }
+
+  async exitFullscreen(): Promise<void> {
+    await this.controller?.exitFullscreen();
+  }
+
+  async getFullscreen(): Promise<boolean> {
+    return this.controller?.getFullscreen() ?? false;
+  }
 }
 
 export default VimeoPlayer;
