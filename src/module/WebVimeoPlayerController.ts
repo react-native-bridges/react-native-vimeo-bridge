@@ -147,6 +147,18 @@ class WebVimeoPlayerController {
     return this.player?.getVideoUrl() ?? '';
   }
 
+  async requestFullscreen(): Promise<void> {
+    await this.player?.requestFullscreen();
+  }
+
+  async exitFullscreen(): Promise<void> {
+    await this.player?.exitFullscreen();
+  }
+
+  async getFullscreen(): Promise<boolean> {
+    return this.player?.getFullscreen() ?? false;
+  }
+
   off(event: string, callback?: EventCallback): void {
     this.player?.off(event, callback);
   }

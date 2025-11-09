@@ -86,3 +86,6 @@ android/generated
 nitrogen/
 
 dist/
+
+# vimeo-js
+vimeo-js.md
