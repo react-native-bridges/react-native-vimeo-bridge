@@ -95,7 +95,7 @@ class WebviewVimeoPlayerController {
   }
 
   async getFullscreen(): Promise<boolean> {
-    return this.executeCommand('getFullscreen', [], false);
+    return this.executeCommand('getFullscreen', [], true);
   }
 
   async destroy(): Promise<void> {
